@@ -36,12 +36,16 @@
             android:background="@null"
             android:fontFamily="@font/ubuntu_regular"
             android:hint="buscar entre tus colecciones"
-            android:imeOptions="actionDone"
+
             android:importantForAutofill="no"
             android:includeFontPadding="false"
             android:inputType="text"
 
-            android:textSize="13sp" />
+            android:textSize="13sp"
+
+            android:focusable="false"
+
+            />
 
     </LinearLayout>
 
@@ -72,13 +76,29 @@
         app:layout_constraintTop_toBottomOf="@+id/tvGreetin" />
 
     <TextView
+        android:id="@+id/textView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
         android:layout_marginTop="24dp"
         android:text="You have 3 lessons to review"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvCollections"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+
+
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
