@@ -15,7 +15,7 @@ class CollectionAdapter(val collections: List<Collection>): RecyclerView.Adapter
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CollectionHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
-        return CollectionHolder(layoutInflater.inflate(R.layout.item_collection_card, parent, false))
+        return CollectionHolder(layoutInflater.inflate(R.layout.item_collection_card , parent, false))
     }
 
     override fun onBindViewHolder(holder: CollectionHolder, position: Int) {
@@ -32,7 +32,6 @@ class CollectionAdapter(val collections: List<Collection>): RecyclerView.Adapter
 
         fun render(collection: Collection) {
             tvTitle = view.findViewById(R.id.tvTittle)
-
 
             tvTitle.text = collection.tittle
 

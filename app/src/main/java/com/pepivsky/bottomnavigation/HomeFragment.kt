@@ -29,7 +29,7 @@ class HomeFragment : Fragment() {
     )
 
     //val lista = MutableListOf
-    val listaColecciones = mutableListOf<Collection>()
+    //val listaColecciones = mutableListOf<Collection>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
