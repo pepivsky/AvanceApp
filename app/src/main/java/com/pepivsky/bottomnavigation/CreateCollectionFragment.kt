@@ -16,6 +16,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.pepivsky.bottomnavigation.model.Collection
+import com.pepivsky.bottomnavigation.model.Collections
 import com.pepivsky.bottomnavigation.model.FlashCard
 import com.pepivsky.bottomnavigation.model.FlashCardAdapter
 
@@ -76,6 +78,10 @@ class CreateCollectionFragment : Fragment() {
             Log.i("size", "${flashCards.size}")
             /*val holder : FlashCardAdapter.FlashcardHolder
             holder.saveFlashCard()*/
+            val newCollection = Collection(edtTitle.text.toString(), flashCards)
+            Collections.collectionsList.add(newCollection)
+
+            Log.i("colecciones", "${Collections.collectionsList}")
 
         }
 

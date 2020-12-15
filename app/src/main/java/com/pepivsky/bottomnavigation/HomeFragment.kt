@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.pepivsky.bottomnavigation.model.Collection
 import com.pepivsky.bottomnavigation.model.CollectionAdapter
+import com.pepivsky.bottomnavigation.model.Collections
 
 
 class HomeFragment : Fragment() {
@@ -17,7 +18,7 @@ class HomeFragment : Fragment() {
     private lateinit var rvCollections: RecyclerView
     private lateinit var edtBuscar: EditText
 
-    val collections = mutableListOf(
+    /*val collections = mutableListOf(
         Collection("Verbos ingles"),
         Collection("Fundamentos de POO"),
         Collection("Patologias"),
@@ -26,7 +27,7 @@ class HomeFragment : Fragment() {
 
 
 
-    )
+    )*/
 
     //val lista = MutableListOf
     //val listaColecciones = mutableListOf<Collection>()
@@ -56,7 +57,7 @@ class HomeFragment : Fragment() {
 
     fun initRecycler() {
         rvCollections.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        val adapter = CollectionAdapter(collections) //se le pasa la lista
+        val adapter = CollectionAdapter(Collections.collectionsList) //se le pasa la lista
         rvCollections.adapter = adapter
     }
 
