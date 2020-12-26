@@ -22,11 +22,15 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener {
         var index = bundle!!.getInt("pos") // 1
         Log.i("quizzActivity", "$index     ${Collections.collectionsList[index]}")
 
+        //obteniendo el arrayList
+        cardsList = bundle.getParcelableArrayList<FlashCard>("lsitaTarjetas")!!
+        Log.i("lista recibida", "$cardsList")
+
         //Collections.collectionsList[message]
 
-        val collection = Collections.collectionsList[index]
+        /*val collection = Collections.collectionsList[index]
         cardsList = collection.listCard
-        Log.i("testeandoLista", "${cardsList}")
+        Log.i("testeandoLista", "${cardsList}")*/
 
         //private val cardsList = mutableListOf<Card>
 

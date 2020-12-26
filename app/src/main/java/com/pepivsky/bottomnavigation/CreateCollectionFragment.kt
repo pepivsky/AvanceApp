@@ -1,10 +1,6 @@
 package com.pepivsky.bottomnavigation
 
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -76,10 +72,12 @@ class CreateCollectionFragment : Fragment() {
         btnGuardar.setOnClickListener {
             Log.i("myTag", "$flashCards")
             Log.i("size", "${flashCards.size}")
-            /*val holder : FlashCardAdapter.FlashcardHolder
-            holder.saveFlashCard()*/
+
+            //guardando el nuevo objeto collection
             val newCollection = Collection(edtTitle.text.toString(), flashCards)
             Collections.collectionsList.add(newCollection)
+
+            Toast.makeText(activity, "Coleccion guardada :)", Toast.LENGTH_SHORT).show()
 
             Log.i("colecciones", "${Collections.collectionsList}")
 

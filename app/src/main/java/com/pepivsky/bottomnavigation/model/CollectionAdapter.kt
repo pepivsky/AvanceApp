@@ -40,6 +40,8 @@ class CollectionAdapter(val collections: List<Collection>): RecyclerView.Adapter
         holder.view.setOnClickListener {
             val intent = Intent(activity, QuizzActivity::class.java )
             intent.putExtra("position", position)
+            intent.putParcelableArrayListExtra("lsitaTarjetas", ArrayList(collections[position].listCard))
+            Log.i("Lista enviada", "${ArrayList(collections[position].listCard)}")
             Log.i("pos", " $position")
             activity.startActivity(intent)
 
