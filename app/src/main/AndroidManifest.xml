@@ -10,7 +10,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BottomNavigation">
         <activity android:name=".QuizzActivity"></activity>
-        <activity android:name=".MainActivity">
+        <!--windowSoftInputMode arregla el error del bottomNavigation que se  al darle tap a un editText-->
+        <activity android:name=".MainActivity"
+            android:windowSoftInputMode="adjustPan|stateHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
