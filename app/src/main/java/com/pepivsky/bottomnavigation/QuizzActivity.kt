@@ -8,10 +8,14 @@ import com.pepivsky.bottomnavigation.model.Collection
 import com.pepivsky.bottomnavigation.model.Collections
 import com.pepivsky.bottomnavigation.model.FlashCard
 
-class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener {
+class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener {
 
     //private val cardsList = MutableList<FlashCard>()
+    private lateinit var  list: List<FlashCard>
+
     var cardsList = mutableListOf<FlashCard>()
+    var listForQuizzFragmentConcept = mutableListOf<FlashCard>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +27,11 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener {
         Log.i("quizzActivity", "$index     ${Collections.collectionsList[index]}")
 
         //obteniendo el arrayList
-        cardsList = bundle.getParcelableArrayList<FlashCard>("lsitaTarjetas")!!
+        list = bundle.getParcelableArrayList<FlashCard>("lsitaTarjetas")!!
+
+        cardsList = list.toMutableList()
+        listForQuizzFragmentConcept = list.toMutableList()
+
         Log.i("lista recibida", "$cardsList")
 
         //Collections.collectionsList[message]
@@ -63,12 +71,42 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener {
 
     }
 
+    fun newFragmentConcept() {
+        val card = sacarCard()
+
+        val fragmentConcept = QuizzFragmentConcept.newInstance(list, card)
+
+        fragmentConcept.setOnButtonListener(this)
+
+        supportFragmentManager //TODO implemetar animaciones
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right)
+            .replace(R.id.container, fragmentConcept)//conteneror y fragment por el cual se reemplaza
+            .commit()
+    }
+
+    fun sacarCard(): FlashCard {
+        val rand = (0 until listForQuizzFragmentConcept.size).random() //obtiendo un numero entre 0 y el tamano de la lista
+        val card = listForQuizzFragmentConcept[rand] //extrayendo un valor de la lista
+        //eliminar el item
+        listForQuizzFragmentConcept.removeAt(rand) //quitando la palabra de la lista
+
+        return card
+    }
+
     //Al darle clic al boton, se lanza este metodo que crea nuevos Fragments
     override fun onButtonClicked() { //funcion sobreescrita que viene en la interfaz
         if (cardsList.isNotEmpty()) { //si todavia hay elementos en mi lista puedo crear mas fragemnts
             newFragmentCard()
         } else {
-            Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
+            if (listForQuizzFragmentConcept.isNotEmpty()) {
+                newFragmentConcept()
+            } else {
+                Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
+                Log.i("lista final" , "$list")
+                Log.i("lista normal", "$cardsList")
+                //Log.i("lista test", "$testFragmentList")
+            }
         }
     }
 }
