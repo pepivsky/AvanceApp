@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.TextView
 import com.pepivsky.bottomnavigation.model.FlashCard
 
 // TODO: Rename parameter arguments, choose names that match
@@ -31,6 +32,8 @@ class QuizzFragmentDefinition : Fragment(), View.OnClickListener {
     private lateinit var btnConcept2: Button
     private lateinit var btnConcept3: Button
 
+    private lateinit var tvDefinition: TextView
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,11 +49,28 @@ class QuizzFragmentDefinition : Fragment(), View.OnClickListener {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_quizz_definition, container, false)
-        // Inflate the layout for this fragment
-        /*btnConcept1 = view.findViewById(R.id.btnDefinition1)
-        btnConcept2 = view.findViewById(R.id.btnConcept2fq)
-        btnConcept3 = view.findViewById(R.id.btnConcept3fq)*/
 
+        val answersList = getAnswers(card!!, listCards)//obtener las respuestas para setear en los botones
+
+        // Inflate the layout for this fragment
+        btnConcept1 = view.findViewById(R.id.btnConcept1)
+        btnConcept2 = view.findViewById(R.id.btnConcept2)
+        btnConcept3 = view.findViewById(R.id.btnConcept3)
+
+        tvDefinition = view.findViewById(R.id.tvDefinitionfq)
+
+
+        //seteando valores
+        tvDefinition.text = card?.concept
+
+        //botones
+        btnConcept1.text = answersList?.get(0)?.definition
+        btnConcept2.text = answersList?.get(1)?.definition
+        btnConcept3.text = answersList?.get(2)?.definition
+
+        btnConcept1 .setOnClickListener {
+            callback?.onButtonClicked()
+        }
 
         return view
     }

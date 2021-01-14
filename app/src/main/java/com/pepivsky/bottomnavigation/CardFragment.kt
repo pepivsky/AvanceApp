@@ -59,8 +59,8 @@ class CardFragment : Fragment(), View.OnClickListener {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_card, container, false)
 
-        tvConcept = view.findViewById(R.id.tvDefinitionfq)
-        tvDefiniton = view.findViewById(R.id.tvDefinition)
+        tvConcept = view.findViewById(R.id.tvConceptCard)
+        tvDefiniton = view.findViewById(R.id.tvDefinitionCard)
         btnSiguiente = view.findViewById(R.id.btnSiguiente)
 
         cardFront = view.findViewById(R.id.cardFront)

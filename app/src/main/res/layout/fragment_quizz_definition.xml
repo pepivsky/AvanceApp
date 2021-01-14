@@ -32,7 +32,7 @@
     </androidx.cardview.widget.CardView>
 
     <Button
-        android:id="@+id/btnDefinition1"
+        android:id="@+id/btnConcept1"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -46,7 +46,7 @@
         app:layout_constraintTop_toBottomOf="@+id/cardFront" />
 
     <Button
-        android:id="@+id/btnDefinition2"
+        android:id="@+id/btnConcept2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -57,10 +57,10 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDefinition1" />
+        app:layout_constraintTop_toBottomOf="@+id/btnConcept1" />
 
     <Button
-        android:id="@+id/btnDefinition3"
+        android:id="@+id/btnConcept3"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -71,6 +71,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btnDefinition2" />
+        app:layout_constraintTop_toBottomOf="@+id/btnConcept2" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
