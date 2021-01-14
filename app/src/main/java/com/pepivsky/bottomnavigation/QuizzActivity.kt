@@ -8,13 +8,16 @@ import com.pepivsky.bottomnavigation.model.Collection
 import com.pepivsky.bottomnavigation.model.Collections
 import com.pepivsky.bottomnavigation.model.FlashCard
 
-class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener {
+class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener, QuizzFragmentDefinition.OnButtonListener {
 
     //private val cardsList = MutableList<FlashCard>()
-    private lateinit var  list: List<FlashCard>
+    private lateinit var list: List<FlashCard> //lista de flashCards
 
-    var cardsList = mutableListOf<FlashCard>()
-    var listForQuizzFragmentConcept = mutableListOf<FlashCard>()
+    var cardsList = mutableListOf<FlashCard>() //lista para crear los fragmentCard
+    var listForQuizzFragmentConcept =
+        mutableListOf<FlashCard>() //lista para crear los fragmentQuizzConcept
+    var listoForQuizzFragmentDefinition =
+        mutableListOf<FlashCard>()//lista para crear los fragmentQuizzDefinition
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -31,6 +34,7 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
 
         cardsList = list.toMutableList()
         listForQuizzFragmentConcept = list.toMutableList()
+        listoForQuizzFragmentDefinition = list.toMutableList()
 
         Log.i("lista recibida", "$cardsList")
 
@@ -71,6 +75,7 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
 
     }
 
+    //funciones para crear fragmentConcept
     fun newFragmentConcept() {
         val card = sacarCard()
 
@@ -81,15 +86,47 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
         supportFragmentManager //TODO implemetar animaciones
             .beginTransaction()
             .setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right)
-            .replace(R.id.container, fragmentConcept)//conteneror y fragment por el cual se reemplaza
+            .replace(
+                R.id.container,
+                fragmentConcept
+            )//conteneror y fragment por el cual se reemplaza
             .commit()
     }
 
     fun sacarCard(): FlashCard {
-        val rand = (0 until listForQuizzFragmentConcept.size).random() //obtiendo un numero entre 0 y el tamano de la lista
+        val rand =
+            (0 until listForQuizzFragmentConcept.size).random() //obtiendo un numero entre 0 y el tamano de la lista
         val card = listForQuizzFragmentConcept[rand] //extrayendo un valor de la lista
         //eliminar el item
         listForQuizzFragmentConcept.removeAt(rand) //quitando la palabra de la lista
+
+        return card
+    }
+
+    //funciones para crear fragmentDefinition
+    fun newFragmentDefinition() {
+        val card = sacarCardDef()
+
+        val fragmentConcept = QuizzFragmentDefinition.newInstance(list, card)
+
+        fragmentConcept.setOnButtonListener(this)
+
+        supportFragmentManager //TODO implemetar animaciones
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right)
+            .replace(
+                R.id.container,
+                fragmentConcept
+            )//conteneror y fragment por el cual se reemplaza
+            .commit()
+    }
+
+    fun sacarCardDef(): FlashCard {
+        val rand =
+            (0 until listoForQuizzFragmentDefinition.size).random() //obtiendo un numero entre 0 y el tamano de la lista
+        val card = listoForQuizzFragmentDefinition[rand] //extrayendo un valor de la lista
+        //eliminar el item
+        listoForQuizzFragmentDefinition.removeAt(rand) //quitando la palabra de la lista
 
         return card
     }
@@ -102,10 +139,14 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
             if (listForQuizzFragmentConcept.isNotEmpty()) {
                 newFragmentConcept()
             } else {
-                Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
-                Log.i("lista final" , "$list")
-                Log.i("lista normal", "$cardsList")
-                //Log.i("lista test", "$testFragmentList")
+                if (listoForQuizzFragmentDefinition.isNotEmpty()) {
+                    newFragmentDefinition()
+                } else {
+                    Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
+                    Log.i("lista final", "$list")
+                    Log.i("lista normal", "$cardsList")
+                    //Log.i("lista test", "$testFragmentList")
+                }
             }
         }
     }

@@ -61,12 +61,12 @@ class QuizzFragmentDefinition : Fragment(), View.OnClickListener {
 
 
         //seteando valores
-        tvDefinition.text = card?.concept
+        tvDefinition.text = card?.definition
 
         //botones
-        btnConcept1.text = answersList?.get(0)?.definition
-        btnConcept2.text = answersList?.get(1)?.definition
-        btnConcept3.text = answersList?.get(2)?.definition
+        btnConcept1.text = answersList?.get(0)?.concept
+        btnConcept2.text = answersList?.get(1)?.concept
+        btnConcept3.text = answersList?.get(2)?.concept
 
         btnConcept1 .setOnClickListener {
             callback?.onButtonClicked()
