@@ -3,21 +3,24 @@ package com.pepivsky.bottomnavigation
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.widget.ProgressBar
 import android.widget.Toast
 import com.pepivsky.bottomnavigation.model.Collection
 import com.pepivsky.bottomnavigation.model.Collections
 import com.pepivsky.bottomnavigation.model.FlashCard
 
-class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener, QuizzFragmentDefinition.OnButtonListener {
+class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener, QuizzFragmentDefinition.OnButtonListener, QuizzFragmentInput.OnButtonListener {
+
+    lateinit var progressBar: ProgressBar
 
     //private val cardsList = MutableList<FlashCard>()
     private lateinit var list: List<FlashCard> //lista de flashCards
 
     var cardsList = mutableListOf<FlashCard>() //lista para crear los fragmentCard
-    var listForQuizzFragmentConcept =
-        mutableListOf<FlashCard>() //lista para crear los fragmentQuizzConcept
-    var listoForQuizzFragmentDefinition =
-        mutableListOf<FlashCard>()//lista para crear los fragmentQuizzDefinition
+    var listForQuizzFragmentConcept = mutableListOf<FlashCard>() //lista para crear los fragmentQuizzConcept
+    var listoForQuizzFragmentDefinition = mutableListOf<FlashCard>()//lista para crear los fragmentQuizzDefinition
+    var listoForQuizzFragmentInput = mutableListOf<FlashCard>()//lista para crear los fragmentQuizzDefinition
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,6 +38,7 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
         cardsList = list.toMutableList()
         listForQuizzFragmentConcept = list.toMutableList()
         listoForQuizzFragmentDefinition = list.toMutableList()
+        listoForQuizzFragmentInput = list.toMutableList()
 
         Log.i("lista recibida", "$cardsList")
 
@@ -46,7 +50,14 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
 
         //private val cardsList = mutableListOf<Card>
 
-        newFragmentCard()
+        newFragmentCard() //agregar el primer fragment
+
+        initProgressBar()
+    }
+
+    private fun initProgressBar() {
+        progressBar = findViewById(R.id.pbQuizz)
+        progressBar.max = (list.size * 4) - 1 //establecer el maximo valor del progressBar
     }
 
     fun sacarTarjeta(): FlashCard {
@@ -131,21 +142,57 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
         return card
     }
 
+    //frgament input
+    fun sacarTarjeta1(): FlashCard {
+        val rand =
+            (0 until listoForQuizzFragmentInput.size).random() //obtiendo un numero entre 0 y el tamano de la lista
+        val card = listoForQuizzFragmentInput[rand] //extrayendo un valor de la lista
+        //eliminar el item
+        listoForQuizzFragmentInput.removeAt(rand) //quitando la palabra de la lista
+
+        return card
+    }
+
+    fun newFragmentInput() { //funcion que crea fragments
+        val card = sacarTarjeta1()
+        val fragment = QuizzFragmentInput.newInstance(card) //pasandole el string que necesita el fragment
+
+        //seteando el onButtonListener
+        fragment.setOnButtonListener(this)
+
+        //fragment.setOnbuttonListener(this)
+        supportFragmentManager //TODO implemetar animaciones
+            .beginTransaction()
+            .setCustomAnimations(R.anim.slide_out_left, R.anim.slide_in_right)
+            .replace(R.id.container, fragment)//conteneror y fragment por el cual se reemplaza
+            .commit()
+
+    }
+
     //Al darle clic al boton, se lanza este metodo que crea nuevos Fragments
     override fun onButtonClicked() { //funcion sobreescrita que viene en la interfaz
         if (cardsList.isNotEmpty()) { //si todavia hay elementos en mi lista puedo crear mas fragemnts
             newFragmentCard()
+            progressBar.incrementProgressBy(1)
         } else {
             if (listForQuizzFragmentConcept.isNotEmpty()) {
                 newFragmentConcept()
+                progressBar.incrementProgressBy(1)
             } else {
                 if (listoForQuizzFragmentDefinition.isNotEmpty()) {
                     newFragmentDefinition()
+                    progressBar.incrementProgressBy(1)
                 } else {
-                    Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
-                    Log.i("lista final", "$list")
-                    Log.i("lista normal", "$cardsList")
-                    //Log.i("lista test", "$testFragmentList")
+                    if (listoForQuizzFragmentInput.isNotEmpty()) {
+                        newFragmentInput()
+                        progressBar.incrementProgressBy(1)
+                    } else {
+                        Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
+                        Log.i("lista final", "$list")
+                        Log.i("lista normal", "$cardsList")
+                        //Log.i("lista test", "$testFragmentList")
+                    }
+
                 }
             }
         }
