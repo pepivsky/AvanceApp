@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.TextView
+import android.widget.Toast
 import com.pepivsky.bottomnavigation.model.FlashCard
 
 // TODO: Rename parameter arguments, choose names that match
@@ -64,7 +65,11 @@ class QuizzFragmentConcept : Fragment(), View.OnClickListener {
         btnDef2.text = answersList?.get(1)?.definition
         btnDef3.text = answersList?.get(2)?.definition
 
+        //comprobar si la respuesta es correcta
         btnDef1.setOnClickListener {
+            if (btnDef1.text.toString().equals(card?.definition, true)) { //aqui se compara el valor del texto del boton contra el del objeto card para saber si es la respuesta correcta
+                Log.i("QuizzFragmentConcept", "DefinicionCorrecta")
+            }
             callback?.onButtonClicked()
         }
 
