@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.ProgressBar
 import android.widget.Toast
+import com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
 import com.pepivsky.bottomnavigation.model.Collection
 import com.pepivsky.bottomnavigation.model.Collections
 import com.pepivsky.bottomnavigation.model.FlashCard
 
 class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, QuizzFragmentConcept.OnButtonListener, QuizzFragmentDefinition.OnButtonListener, QuizzFragmentInput.OnButtonListener {
 
-    lateinit var progressBar: ProgressBar
+    lateinit var progressBar: RoundCornerProgressBar
 
     //private val cardsList = MutableList<FlashCard>()
     private lateinit var list: List<FlashCard> //lista de flashCards
@@ -57,7 +58,7 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
 
     private fun initProgressBar() {
         progressBar = findViewById(R.id.pbQuizz)
-        progressBar.max = (list.size * 4) - 1 //establecer el maximo valor del progressBar
+        progressBar.max = ((list.size * 4) - 1).toFloat() //establecer el maximo valor del progressBar
     }
 
     fun sacarTarjeta(): FlashCard {
@@ -173,19 +174,19 @@ class QuizzActivity : AppCompatActivity(),  CardFragment.OnButtonListener, Quizz
     override fun onButtonClicked() { //funcion sobreescrita que viene en la interfaz
         if (cardsList.isNotEmpty()) { //si todavia hay elementos en mi lista puedo crear mas fragemnts
             newFragmentCard()
-            progressBar.incrementProgressBy(1)
+            progressBar.progress++
         } else {
             if (listForQuizzFragmentConcept.isNotEmpty()) {
                 newFragmentConcept()
-                progressBar.incrementProgressBy(1)
+                progressBar.progress++
             } else {
                 if (listoForQuizzFragmentDefinition.isNotEmpty()) {
                     newFragmentDefinition()
-                    progressBar.incrementProgressBy(1)
+                    progressBar.progress++
                 } else {
                     if (listoForQuizzFragmentInput.isNotEmpty()) {
                         newFragmentInput()
-                        progressBar.incrementProgressBy(1)
+                        progressBar.progress++
                     } else {
                         Toast.makeText(this, "No hay mas tarjetas", Toast.LENGTH_LONG).show()
                         Log.i("lista final", "$list")

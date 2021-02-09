@@ -53,4 +53,7 @@ dependencies {
 
     //circleImageView
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+
+    //rounded progressbar
+    implementation 'com.akexorcist:round-corner-progress-bar:2.1.1'
 }

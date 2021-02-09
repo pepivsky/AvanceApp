@@ -12,16 +12,23 @@
     tools:context=".QuizzActivity">
 
 
-    <ProgressBar
+    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
         android:id="@+id/pbQuizz"
-        style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="26dp"
         tools:background="@color/purple_200"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+
+        app:rcBackgroundColor="#0A000000"
+        app:rcBackgroundPadding="5dp"
+        app:rcProgressColor="@color/teal_700"
+        app:rcRadius="10dp"
+
+        app:rcAnimationEnable="true"
+        app:rcAnimationSpeedScale="5.0"
 
         />
 
