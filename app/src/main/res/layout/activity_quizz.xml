@@ -11,26 +11,46 @@
 
     tools:context=".QuizzActivity">
 
-
-    <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
-        android:id="@+id/pbQuizz"
+    <LinearLayout
+        android:id="@+id/linearPB"
         android:layout_width="match_parent"
-        android:layout_height="26dp"
-        tools:background="@color/purple_200"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        >
 
-        app:rcBackgroundColor="#0A000000"
-        app:rcBackgroundPadding="5dp"
-        app:rcProgressColor="@color/teal_700"
-        app:rcRadius="10dp"
+        <ImageButton
+            android:id="@+id/cancelButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_close"
+            android:layout_weight="1"
+            />
 
-        app:rcAnimationEnable="true"
-        app:rcAnimationSpeedScale="5.0"
+        <com.akexorcist.roundcornerprogressbar.RoundCornerProgressBar
+            android:id="@+id/pbQuizz"
+            android:layout_width="0dp"
+            android:layout_height="16dp"
+            tools:background="@color/purple_200"
+            android:layout_weight="7"
+            android:layout_gravity="center_vertical"
 
-        />
+
+
+            app:rcBackgroundColor="#0A000000"
+            app:rcBackgroundPadding="5dp"
+            app:rcProgressColor="@color/teal_700"
+            app:rcRadius="10dp"
+
+            app:rcAnimationEnable="true"
+            app:rcAnimationSpeedScale="5.0"
+
+            />
+    </LinearLayout>
+
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/container"
@@ -40,7 +60,7 @@
 
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/pbQuizz"
+        app:layout_constraintTop_toBottomOf="@id/linearPB"
         app:layout_constraintBottom_toBottomOf="parent"
 
         >
