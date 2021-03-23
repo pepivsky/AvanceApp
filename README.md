@@ -9,6 +9,9 @@ App **Android** de ayuda para estudiar y aprender conceptos nuevos por medio de 
 * Login directo con cuenta de google
 * Login directo con cuenta de Facebook
 * Guardado de datos en la nube
+* Permite eliminar datos
+* Permite editar datos
+* Permite actualizar datos
 * Cada usuario tiene sus propios datos
 * Quiz para aprender cosas nuevas
 
